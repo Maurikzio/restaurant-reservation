@@ -1,5 +1,9 @@
 import RestaurantHeader from "../components/RestaurantHeader";
 
+export const metadata = {
+  title: "Millestones Grill | OpenTable",
+};
+
 export default function RestaurantLayout({
   children,
 }: {

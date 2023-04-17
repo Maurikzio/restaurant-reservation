@@ -2,7 +2,7 @@ import NavBar from "@/components/NavBar";
 import "./globals.css";
 
 export const metadata = {
-  title: "Reserve a table",
+  title: "Open Table",
   description: "You can reserve a table or many tables :)",
 };
 

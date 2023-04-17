@@ -1,6 +1,10 @@
 import ReserveHeader from "../components/ReserveHeader";
 import ReserveForm from "../components/ReserveForm";
 
+export const metadata = {
+  title: "Reserve at Millestones Grill | OpenTable",
+};
+
 const ReservePage = () => {
   return (
     <div className="border-t h-screen">
