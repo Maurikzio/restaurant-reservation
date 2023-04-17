@@ -10,19 +10,16 @@ import RestaurantReservationCard from "../components/RestaurantReservationCard";
 const RestaurantDetails = () => {
   return (
     <>
-      <RestaurantHeader />
-      <div className="flex m-auto w-2/3 justify-between items-start 0 -mt-11">
-        <div className="bg-white w-[70%] rounded p-3 shadow">
-          <RestaurantNavBar />
-          <RestaurantTitle />
-          <RestaurantRating />
-          <RestaurantDescription />
-          <RestaurantImages />
-          <RestaurantReviews />
-        </div>
-        <div className="w-[27%] relative text-reg">
-          <RestaurantReservationCard />
-        </div>
+      <div className="bg-white w-[70%] rounded p-3 shadow">
+        <RestaurantNavBar />
+        <RestaurantTitle />
+        <RestaurantRating />
+        <RestaurantDescription />
+        <RestaurantImages />
+        <RestaurantReviews />
+      </div>
+      <div className="w-[27%] relative text-reg">
+        <RestaurantReservationCard />
       </div>
     </>
   );
