@@ -17,7 +17,7 @@ interface Restaurant {
   slug: string;
 }
 
-const fetchRestaurantBySlug = async (slug: string): Promise<Restaurant> => {
+export const fetchRestaurantBySlug = async (slug: string): Promise<Restaurant> => {
   const restaurant = await prisma.restaurant.findUnique({
     where: {
       slug
@@ -43,11 +43,11 @@ const RestaurantDetails = async ({params}: {params: {'restaurant-slug': string}}
   return (
     <>
       <div className="bg-white w-[70%] rounded p-3 shadow">
-        <RestaurantNavBar />
-        <RestaurantTitle />
+        <RestaurantNavBar slug={restaurant.slug}/>
+        <RestaurantTitle name={restaurant.name}/>
         <RestaurantRating />
-        <RestaurantDescription />
-        <RestaurantImages />
+        <RestaurantDescription description={restaurant.description}/>
+        <RestaurantImages images={restaurant.images}/>
         <RestaurantReviews />
       </div>
       <div className="w-[27%] relative text-reg">
