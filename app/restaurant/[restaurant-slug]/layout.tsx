@@ -5,15 +5,22 @@ import RestaurantHeader from "../components/RestaurantHeader";
 //   title: "Millestones Grill | OpenTable",
 // };
 
-function generateNameFromSlug(slug: string) {
-  // return slug.replaceAll('-', ' ').split(' ').map(word => word[0].toUpperCase()+word.slice(1)).join(' ')
+export function generateNameFromSlug(slug: string) {
   const names = slug.split('-');
-  names[names.length-1] = `(${names[names.length - 1]})`
-  return names.join(" ");
+
+  const name = names.reduce((acc, curr, idx) => {
+    let word = curr[0].toUpperCase()+curr.slice(1);
+    if(idx === names.length-1) {
+      word = `(${word})`; 
+    }
+    return acc+" "+word;
+  }, "");
+
+  return name;
 }
 
 export function generateMetadata({ params }: {params: {'restaurant-slug': string}}): Metadata {
-  return { title: generateNameFromSlug(params['restaurant-slug'])}
+  return { title: `${generateNameFromSlug(params['restaurant-slug'])} | OpenTable`}
 }
 
 export default function RestaurantLayout({

@@ -1,6 +1,11 @@
+import { Item } from "@prisma/client";
 import RestaurantMenuCard from "./RestaurantMenuCard";
 
-const RestaurantMenu = () => {
+interface Props {
+  menu: Item[];
+}
+
+const RestaurantMenu: React.FunctionComponent<Props> = ({ menu }) => {
   return (
     <main className="bg-white mt-5">
       <div>
@@ -8,7 +13,9 @@ const RestaurantMenu = () => {
           <h1 className="font-bold text-4xl">Menu</h1>
         </div>
         <div className="flex flex-wrap justify-between">
-          <RestaurantMenuCard />
+          {menu.map(item => (
+            <RestaurantMenuCard key={item.id} menuItem={item}/>
+          ))}
         </div>
       </div>
     </main>
