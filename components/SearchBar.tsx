@@ -2,11 +2,13 @@
 
 import React from "react";
 import { useState} from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const SearchBar = () => {
   const router = useRouter();
-  const [location, setLocation] = useState("");
+  const searchParams = useSearchParams();
+  const [location, setLocation] = useState(searchParams.get('city') ?? '');
+
   return (
     <div className="text-left text-lg py-3 m-auto flex justify-center">
       <input
@@ -19,10 +21,10 @@ const SearchBar = () => {
       <button
         className="rounded bg-red-600 px-9 py-2 text-white"
         onClick={() => {
-          if (location === "banana") {
+          if (location === "") {
             return;
           } else {
-            router.push("/search");
+            router.push(`/search?city=${location.toLowerCase()}`);
           }
         }}
       >

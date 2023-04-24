@@ -8,7 +8,7 @@ import { Metadata } from "next";
 //   title: "Millestones Grill Menu | OpenTable",
 // };
 export function generateMetadata({ params }: {params: {'restaurant-slug': string}}): Metadata {
-  return { title: `${generateNameFromSlug(params['restaurant-slug'])} Menu | OpenTable`}
+  return { title: `${generateNameFromSlug(params['restaurant-slug'])} Menu| OpenTable`}
 }
 
 const prisma = new PrismaClient();
