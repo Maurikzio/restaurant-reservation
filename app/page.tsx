@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import HeaderComponent from "../components/Header";
 import RestaurantCard from "../components/RestaurantCard";
-import { PrismaClient, Cuisine, Location, PRICE } from "@prisma/client";
+import { PrismaClient, Cuisine, Location, PRICE, Review } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -13,6 +13,7 @@ export interface RestaurantCardType {
   location: Location;
   price: PRICE;
   slug: string;
+  reviews: Pick<Review, "id" | "rating">[];
 }
 
 const fetchRestaurants = async (): Promise<RestaurantCardType[]> => {
@@ -25,6 +26,12 @@ const fetchRestaurants = async (): Promise<RestaurantCardType[]> => {
       location: true,
       price: true,
       slug: true,
+      reviews: {
+        select: {
+          id: true,
+          rating: true,
+        },
+      },
     },
   });
   return restaurants;
