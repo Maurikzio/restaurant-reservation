@@ -8,10 +8,10 @@ const prisma = new PrismaClient();
 export interface RestaurantCardType {
   id: number;
   name: string;
-  main_image: string
+  main_image: string;
   cuisine: Cuisine;
   location: Location;
-  price: PRICE
+  price: PRICE;
   slug: string;
 }
 
@@ -25,12 +25,10 @@ const fetchRestaurants = async (): Promise<RestaurantCardType[]> => {
       location: true,
       price: true,
       slug: true,
-    }
-
+    },
   });
   return restaurants;
-}
-
+};
 
 export default async function Home() {
   const restaurants = await fetchRestaurants();
@@ -39,11 +37,11 @@ export default async function Home() {
       <HeaderComponent />
       <div className="py-3 px-36 mt-10 flex flex-wrap justify-center">
         {restaurants.map((restaurant) => (
-            <RestaurantCard 
-              key={restaurant.id}
-              restaurant={restaurant}
-              // restaurant={restaurant}
-            />
+          <RestaurantCard
+            key={restaurant.id}
+            restaurant={restaurant}
+            // restaurant={restaurant}
+          />
         ))}
       </div>
     </main>
