@@ -6,13 +6,12 @@ import { PRICE, PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 interface SearchParams {
-  city?: string, 
-  cuisine?: string, 
-  price?: PRICE
+  city?: string;
+  cuisine?: string;
+  price?: PRICE;
 }
 
-const fetchResturantsByCity =  (searchParams: SearchParams) => {
-
+const fetchResturantsByCity = (searchParams: SearchParams) => {
   const select = {
     id: true,
     name: true,
@@ -24,44 +23,44 @@ const fetchResturantsByCity =  (searchParams: SearchParams) => {
   };
 
   const where: {
-    location?: { name: {equals: string}}, 
-    cuisine?: {name: {equals: string}}, 
-    price?: {equals: PRICE}
+    location?: { name: { equals: string } };
+    cuisine?: { name: { equals: string } };
+    price?: { equals: PRICE };
   } = {};
 
-  if(searchParams.city) {
+  if (searchParams.city) {
     const location = {
       name: {
         equals: searchParams.city.toLocaleLowerCase(),
-      }
+      },
     };
 
     where.location = location;
   }
 
-  if(searchParams.cuisine) {
+  if (searchParams.cuisine) {
     const cuisine = {
       name: {
-        equals: searchParams.cuisine.toLocaleLowerCase()
-      }
+        equals: searchParams.cuisine.toLocaleLowerCase(),
+      },
     };
 
     where.cuisine = cuisine;
   }
 
-  if(searchParams.price) {
+  if (searchParams.price) {
     const price = {
-      equals: searchParams.price
+      equals: searchParams.price,
     };
 
     where.price = price;
   }
 
-  return  prisma.restaurant.findMany({
+  return prisma.restaurant.findMany({
     where,
-    select
+    select,
   });
-}
+};
 
 const fetchLocations = async () => {
   return prisma.location.findMany();
@@ -69,14 +68,13 @@ const fetchLocations = async () => {
 
 const fetchCuisines = async () => {
   return prisma.cuisine.findMany();
-}
+};
 
-const SearchPage = async (props: {searchParams: SearchParams}) => {
-  console.log('searchParams', props.searchParams)
-  const restaurants = await fetchResturantsByCity({ 
-    city: props.searchParams.city, 
+const SearchPage = async (props: { searchParams: SearchParams }) => {
+  const restaurants = await fetchResturantsByCity({
+    city: props.searchParams.city,
     cuisine: props.searchParams.cuisine,
-    price: props.searchParams.price
+    price: props.searchParams.price,
   });
   const locations = await fetchLocations();
   const cuisines = await fetchCuisines();
@@ -85,12 +83,19 @@ const SearchPage = async (props: {searchParams: SearchParams}) => {
     <>
       <SearchHeader />
       <div className="flex py-4 m-auto w-2/3 justify-between items-start">
-        <SearchSideBar locations={locations} cuisines={cuisines} searchParams={props.searchParams}/>
+        <SearchSideBar
+          locations={locations}
+          cuisines={cuisines}
+          searchParams={props.searchParams}
+        />
         <div className="w-5/6">
           {restaurants.length ? (
             <>
-              {restaurants.map(restaurant => (
-                <SearchRestaurantCard key={restaurant.id} restaurant={restaurant}/>
+              {restaurants.map((restaurant) => (
+                <SearchRestaurantCard
+                  key={restaurant.id}
+                  restaurant={restaurant}
+                />
               ))}
             </>
           ) : (
@@ -103,7 +108,6 @@ const SearchPage = async (props: {searchParams: SearchParams}) => {
 };
 
 export default SearchPage;
-
 
 export const metadata = {
   title: "Search | OpenTable",
