@@ -13,10 +13,12 @@ interface Restaurant {
 }
 
 interface Props {
-  restaurant: Restaurant
+  restaurant: Restaurant;
 }
 
-const SearchRestaurantCard: React.FunctionComponent<Props> = ({ restaurant }) => {
+const SearchRestaurantCard: React.FunctionComponent<Props> = ({
+  restaurant,
+}) => {
   return (
     <div className="border-b flex pb-5 ml-4">
       <img
@@ -38,7 +40,9 @@ const SearchRestaurantCard: React.FunctionComponent<Props> = ({ restaurant }) =>
           </div>
         </div>
         <div className="text-red-600">
-          <Link href={`/restaurant/${restaurant.slug}`}>View more information</Link>
+          <Link href={`/restaurant/${restaurant.slug}`}>
+            View more information
+          </Link>
         </div>
       </div>
     </div>
