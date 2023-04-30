@@ -17,10 +17,12 @@ interface Restaurant {
   slug: string;
 }
 
-export const fetchRestaurantBySlug = async (slug: string): Promise<Restaurant> => {
+export const fetchRestaurantBySlug = async (
+  slug: string
+): Promise<Restaurant> => {
   const restaurant = await prisma.restaurant.findUnique({
     where: {
-      slug
+      slug,
     },
     select: {
       id: true,
@@ -28,26 +30,30 @@ export const fetchRestaurantBySlug = async (slug: string): Promise<Restaurant> =
       images: true,
       description: true,
       slug: true,
-    }
+    },
   });
 
-  if( !restaurant) {
+  if (!restaurant) {
     throw new Error();
   }
 
   return restaurant;
-}
+};
 
-const RestaurantDetails = async ({params}: {params: {'restaurant-slug': string}}) => {
+const RestaurantDetails = async ({
+  params,
+}: {
+  params: { "restaurant-slug": string };
+}) => {
   const restaurant = await fetchRestaurantBySlug(params["restaurant-slug"]);
   return (
     <>
       <div className="bg-white w-[70%] rounded p-3 shadow">
-        <RestaurantNavBar slug={restaurant.slug}/>
-        <RestaurantTitle name={restaurant.name}/>
+        <RestaurantNavBar slug={restaurant.slug} />
+        <RestaurantTitle name={restaurant.name} />
         <RestaurantRating />
-        <RestaurantDescription description={restaurant.description}/>
-        <RestaurantImages images={restaurant.images}/>
+        <RestaurantDescription description={restaurant.description} />
+        <RestaurantImages images={restaurant.images} />
         <RestaurantReviews />
       </div>
       <div className="w-[27%] relative text-reg">
