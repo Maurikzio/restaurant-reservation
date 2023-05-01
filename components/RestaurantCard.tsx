@@ -1,6 +1,7 @@
 import { RestaurantCardType } from "@/app/page";
 import Link from "next/link";
 import Price from "./Price";
+import Stars from "./Stars";
 
 interface Props {
   restaurant: RestaurantCardType;
@@ -14,7 +15,7 @@ const RestaurantCard: React.FunctionComponent<Props> = ({ restaurant }) => {
         <div className="p-1">
           <h3 className="font-bold text-2xl mb-2">{restaurant.name}</h3>
           <div className="flex items-start">
-            <div className="flex mb-2">*****</div>
+            <Stars reviews={restaurant.reviews} />
             <p className="ml-2">{`${restaurant.reviews.length} revie${
               restaurant.reviews.length !== 1 ? "ws" : "w"
             }`}</p>

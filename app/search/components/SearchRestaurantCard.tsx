@@ -1,4 +1,5 @@
 import Price from "@/components/Price";
+import Stars from "@/components/Stars";
 import { calculateReviewRatingAverage } from "@/utils/calculateReviewRatingAverage";
 import { Cuisine, Location, PRICE, Review } from "@prisma/client";
 import Link from "next/link";
@@ -43,7 +44,9 @@ const SearchRestaurantCard: React.FunctionComponent<Props> = ({
       <div className="pl-5">
         <h2 className="text-3xl">{restaurant.name}</h2>
         <div className="flex items-start">
-          <div className="flex mb-2">*****</div>
+          <div className="flex mb-2">
+            <Stars reviews={restaurant.reviews} />
+          </div>
           <p className="ml-2 text-sm">{renderRatingText()}</p>
         </div>
         <div className="mb-9">

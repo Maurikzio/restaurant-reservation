@@ -13,7 +13,7 @@ export interface RestaurantCardType {
   location: Location;
   price: PRICE;
   slug: string;
-  reviews: Pick<Review, "id" | "rating">[];
+  reviews: Review[];
 }
 
 const fetchRestaurants = async (): Promise<RestaurantCardType[]> => {
@@ -26,12 +26,7 @@ const fetchRestaurants = async (): Promise<RestaurantCardType[]> => {
       location: true,
       price: true,
       slug: true,
-      reviews: {
-        select: {
-          id: true,
-          rating: true,
-        },
-      },
+      reviews: true,
     },
   });
   return restaurants;
