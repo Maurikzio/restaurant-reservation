@@ -2,8 +2,9 @@ import { Inter } from "next/font/google";
 import HeaderComponent from "../components/Header";
 import RestaurantCard from "../components/RestaurantCard";
 import { PrismaClient, Cuisine, Location, PRICE, Review } from "@prisma/client";
+import prisma from "@/lib/prisma";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 export interface RestaurantCardType {
   id: number;

@@ -5,10 +5,9 @@ import RestaurantDescription from "../components/RestaurantDescription";
 import RestaurantImages from "../components/RestaurantImages";
 import RestaurantReviews from "../components/RestaurantReviews";
 import RestaurantReservationCard from "../components/RestaurantReservationCard";
-import { PrismaClient, Review } from "@prisma/client";
+import { Review } from "@prisma/client";
 import { notFound } from "next/navigation";
-
-const prisma = new PrismaClient();
+import prisma from "@/lib/prisma";
 
 interface Restaurant {
   id: number;

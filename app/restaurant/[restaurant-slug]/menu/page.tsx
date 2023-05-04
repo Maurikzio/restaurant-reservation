@@ -1,8 +1,9 @@
 import RestaurantNavBar from "../../components/RestaurantNavBar";
 import RestaurantMenu from "../../components/RestaurantMenu";
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
 import { generateNameFromSlug } from "../layout";
 import { Metadata } from "next";
+import prisma from "@/lib/prisma";
 
 // export const metadata = {
 //   title: "Millestones Grill Menu | OpenTable",
@@ -17,7 +18,7 @@ export function generateMetadata({
   };
 }
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 const fetchRestaurantMenu = async (slug: string) => {
   const restaurant = await prisma.restaurant.findUnique({
