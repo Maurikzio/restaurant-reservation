@@ -24,8 +24,24 @@ interface Props {
 
 function LoginModal({ isSignIn }: Props) {
   const [open, setOpen] = useState(false);
+  const [inputs, setInputs] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    city: "",
+    password: "",
+  });
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputs({
+      ...inputs,
+      [event.target.name]: event.target.value,
+    });
+  };
 
   return (
     <div>
@@ -52,7 +68,11 @@ function LoginModal({ isSignIn }: Props) {
               <h2 className="text-2xl font-light text-center">
                 {isSignIn ? "Log Into Your Account" : "Create Account"}
               </h2>
-              <AuthModalInputs />
+              <AuthModalInputs
+                inputs={inputs}
+                handleChangeInput={handleChangeInput}
+                isSignIn={isSignIn}
+              />
               <button className="uppercase bg-red-600 w-full text-white p-3 rounded test-sm mb-5 disabled:bg-gray-400">
                 {isSignIn ? "Sign In" : "Create Account"}
               </button>
