@@ -7,8 +7,14 @@ import { Metadata } from "next";
 // export const metadata = {
 //   title: "Millestones Grill Menu | OpenTable",
 // };
-export function generateMetadata({ params }: {params: {'restaurant-slug': string}}): Metadata {
-  return { title: `${generateNameFromSlug(params['restaurant-slug'])} Menu| OpenTable`}
+export function generateMetadata({
+  params,
+}: {
+  params: { "restaurant-slug": string };
+}): Metadata {
+  return {
+    title: `${generateNameFromSlug(params["restaurant-slug"])} Menu| OpenTable`,
+  };
 }
 
 const prisma = new PrismaClient();
@@ -30,12 +36,16 @@ const fetchRestaurantMenu = async (slug: string) => {
   return restaurant.items;
 };
 
-const RestaurantMenuPage = async ({params}: {params: { "restaurant-slug": string }}) => {
-  const menu = await fetchRestaurantMenu(params['restaurant-slug']);
+const RestaurantMenuPage = async ({
+  params,
+}: {
+  params: { "restaurant-slug": string };
+}) => {
+  const menu = await fetchRestaurantMenu(params["restaurant-slug"]);
   return (
     <div className="bg-white w-[100%] rounded p-3 shadow">
       <RestaurantNavBar slug={params["restaurant-slug"]} />
-      <RestaurantMenu menu={menu}/>
+      <RestaurantMenu menu={menu} />
     </div>
   );
 };
