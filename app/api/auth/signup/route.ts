@@ -1,6 +1,7 @@
 import validator from "validator";
 import { NextResponse } from 'next/server';
 import prisma from "@/lib/prisma";
+import bcrypt from "bcrypt";
 
 export async function POST(request: Request, response: Response) {
 
@@ -55,6 +56,7 @@ export async function POST(request: Request, response: Response) {
     return NextResponse.json({errorMessage: "Email is associated with another account"}, {status: 400})
   }
 
+  const hashedPwd = await bcrypt.hash(password, 10);
 
   return new Response("Hello there", {
     status: 200,
