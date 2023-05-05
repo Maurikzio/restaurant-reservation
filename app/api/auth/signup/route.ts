@@ -77,7 +77,5 @@ export async function POST(request: Request, response: Response) {
     .setExpirationTime('24h')
     .sign(secret)
 
-  return new Response("Hello there", {
-    status: 200,
-  })
+    return NextResponse.json({token}, { status: 200 })
 }
