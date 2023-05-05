@@ -58,6 +58,17 @@ export async function POST(request: Request, response: Response) {
 
   const hashedPwd = await bcrypt.hash(password, 10);
 
+  const user = await prisma.user.create({
+    data: {
+      first_name: firstName,
+      last_name: lastName,
+      password: hashedPwd,
+      city,
+      phone,
+      email
+    }
+  })
+
   return new Response("Hello there", {
     status: 200,
   })
