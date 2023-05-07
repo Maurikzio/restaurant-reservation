@@ -1,31 +1,16 @@
 import { NextResponse } from "next/server";
 import { headers } from 'next/headers';
-import * as jose from "jose";
 import jwt from 'jsonwebtoken'
 import prisma from "@/lib/prisma";
 
 export async function GET(request: Request, response: Response) {
 
   const headersList = headers();
-  const bearerToken = headersList.get('authorization');
-
-  if(!bearerToken) {
-    return NextResponse.json({errorMessage: "Unauthorized request"}, {status: 401})
-  }
+  const bearerToken = headersList.get('authorization') as string;
 
   const token = bearerToken.split(' ')[1];
 
-  if(!token) {
-    return NextResponse.json({errorMessage: "Unauthorized request"}, {status: 401})
-  }
-
-  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-
-  try {
-    await jose.jwtVerify(token, secret);
-  } catch(err) {
-    return NextResponse.json({errorMessage: "Unauthorized request"}, {status: 401})
-  }
+  // we dont have to check if the token exists or not, because we are doing that in the middleware.
 
   // We are using jwt to decode the token instead of jose this time.
   const payload = jwt.decode(token) as { email: string };
