@@ -35,7 +35,7 @@ export const AuthenticationContext = createContext<Auth>({
 const AuthContext: React.FunctionComponent<Props> = ({ children }) => {
   const [authState, setAuthState] = useState<State>({
     loading: false,
-    error: "I am an error",
+    error: null,
     data: null,
   });
 

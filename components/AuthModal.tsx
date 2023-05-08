@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import AuthModalInputs from "./AuthModalInputs";
 import useAuth from "@/hooks/useAuth";
 import { AuthenticationContext } from "@/app/context/AuthContext";
-import { CircularProgress } from "@mui/material";
+import { Alert, CircularProgress } from "@mui/material";
 
 const style = {
   position: "absolute" as "absolute",
@@ -24,7 +24,9 @@ interface Props {
 }
 
 function LoginModal({ isSignIn }: Props) {
-  const { data, error, loading } = useContext(AuthenticationContext);
+  const { data, error, loading, setAuthState } = useContext(
+    AuthenticationContext
+  );
   const [open, setOpen] = useState(false);
   const [inputs, setInputs] = useState({
     firstName: "",
@@ -38,7 +40,23 @@ function LoginModal({ isSignIn }: Props) {
   const { signIn } = useAuth();
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setAuthState((prevState) => ({
+      data: prevState.data,
+      error: null,
+      loading: false,
+    }));
+    setInputs({
+      ...inputs,
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      city: "",
+      password: "",
+    });
+    setOpen(false);
+  };
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputs({
@@ -115,6 +133,7 @@ function LoginModal({ isSignIn }: Props) {
                   {isSignIn ? "Sign In" : "Create Account"}
                 </button>
               </div>
+              {error ? <Alert severity="error">{error}</Alert> : null}
             </div>
           )}
         </Box>
