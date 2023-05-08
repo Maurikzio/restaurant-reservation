@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import AuthModalInputs from "./AuthModalInputs";
+import useAuth from "@/hooks/useAuth";
+import { AuthenticationContext } from "@/app/context/AuthContext";
 
 const style = {
   position: "absolute" as "absolute",
@@ -21,6 +23,7 @@ interface Props {
 }
 
 function LoginModal({ isSignIn }: Props) {
+  const { error } = useContext(AuthenticationContext);
   const [open, setOpen] = useState(false);
   const [inputs, setInputs] = useState({
     firstName: "",
@@ -31,6 +34,7 @@ function LoginModal({ isSignIn }: Props) {
     password: "",
   });
   const [disabled, setDisabled] = useState(true);
+  const { signIn } = useAuth();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -60,6 +64,12 @@ function LoginModal({ isSignIn }: Props) {
       }
     }
   }, [inputs]);
+
+  const handleClick = () => {
+    if (isSignIn) {
+      signIn({ email: inputs.email, password: inputs.password });
+    }
+  };
 
   return (
     <div>
@@ -94,6 +104,7 @@ function LoginModal({ isSignIn }: Props) {
               <button
                 className="uppercase bg-red-600 w-full text-white p-3 rounded test-sm mb-5 disabled:bg-gray-400"
                 disabled={disabled}
+                onClick={handleClick}
               >
                 {isSignIn ? "Sign In" : "Create Account"}
               </button>
