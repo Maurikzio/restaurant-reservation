@@ -6,6 +6,7 @@ import Modal from "@mui/material/Modal";
 import AuthModalInputs from "./AuthModalInputs";
 import useAuth from "@/hooks/useAuth";
 import { AuthenticationContext } from "@/app/context/AuthContext";
+import { CircularProgress } from "@mui/material";
 
 const style = {
   position: "absolute" as "absolute",
@@ -23,7 +24,7 @@ interface Props {
 }
 
 function LoginModal({ isSignIn }: Props) {
-  const { error } = useContext(AuthenticationContext);
+  const { data, error, loading } = useContext(AuthenticationContext);
   const [open, setOpen] = useState(false);
   const [inputs, setInputs] = useState({
     firstName: "",
@@ -88,28 +89,34 @@ function LoginModal({ isSignIn }: Props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <div className="p-2 h-[600px]">
-            <div className="uppercase font-bold text-center pb-2 border-b mb-2">
-              <p className="text-sm">{isSignIn ? "Sign In" : "Sign Up"}</p>
+          {loading ? (
+            <div className="p-2 h-[600px] flex justify-center items-center">
+              <CircularProgress className="text-red-600" />
             </div>
-            <div className="m-auto">
-              <h2 className="text-2xl font-light text-center">
-                {isSignIn ? "Log Into Your Account" : "Create Account"}
-              </h2>
-              <AuthModalInputs
-                inputs={inputs}
-                handleChangeInput={handleChangeInput}
-                isSignIn={isSignIn}
-              />
-              <button
-                className="uppercase bg-red-600 w-full text-white p-3 rounded test-sm mb-5 disabled:bg-gray-400"
-                disabled={disabled}
-                onClick={handleClick}
-              >
-                {isSignIn ? "Sign In" : "Create Account"}
-              </button>
+          ) : (
+            <div className="p-2 h-[600px]">
+              <div className="uppercase font-bold text-center pb-2 border-b mb-2">
+                <p className="text-sm">{isSignIn ? "Sign In" : "Sign Up"}</p>
+              </div>
+              <div className="m-auto">
+                <h2 className="text-2xl font-light text-center">
+                  {isSignIn ? "Log Into Your Account" : "Create Account"}
+                </h2>
+                <AuthModalInputs
+                  inputs={inputs}
+                  handleChangeInput={handleChangeInput}
+                  isSignIn={isSignIn}
+                />
+                <button
+                  className="uppercase bg-red-600 w-full text-white p-3 rounded test-sm mb-5 disabled:bg-gray-400"
+                  disabled={disabled}
+                  onClick={handleClick}
+                >
+                  {isSignIn ? "Sign In" : "Create Account"}
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </Box>
       </Modal>
     </div>
