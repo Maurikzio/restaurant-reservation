@@ -37,7 +37,7 @@ function LoginModal({ isSignIn }: Props) {
     password: "",
   });
   const [disabled, setDisabled] = useState(true);
-  const { signIn } = useAuth();
+  const { signIn, signUp } = useAuth();
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -56,6 +56,7 @@ function LoginModal({ isSignIn }: Props) {
       password: "",
     });
     setOpen(false);
+    setDisabled(true);
   };
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,23 +71,47 @@ function LoginModal({ isSignIn }: Props) {
       if (inputs.password && inputs.email) {
         setDisabled(false);
       }
-    } else {
+    }
+  }, [inputs.password, inputs.email, isSignIn]);
+
+  useEffect(() => {
+    if (!isSignIn) {
       if (
         inputs.firstName &&
         inputs.lastName &&
         inputs.email &&
-        inputs.email &&
+        inputs.phone &&
         inputs.password &&
         inputs.city
       ) {
         setDisabled(false);
       }
     }
-  }, [inputs]);
+  }, [
+    inputs.firstName,
+    inputs.lastName,
+    inputs.email,
+    inputs.phone,
+    inputs.password,
+    inputs.city,
+    isSignIn,
+  ]);
 
   const handleClick = () => {
     if (isSignIn) {
       signIn({ email: inputs.email, password: inputs.password }, handleClose);
+    } else {
+      signUp(
+        {
+          email: inputs.email,
+          password: inputs.password,
+          firstName: inputs.firstName,
+          lastName: inputs.lastName,
+          city: inputs.city,
+          phone: inputs.phone,
+        },
+        handleClose
+      );
     }
   };
 
