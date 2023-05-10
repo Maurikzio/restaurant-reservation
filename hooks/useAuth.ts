@@ -5,7 +5,7 @@ import { useContext } from "react";
 const useAuth = () => {
   const { data, error, loading, setAuthState } = useContext(AuthenticationContext);
 
-  const signIn = async ({ email, password }: {email: string, password: string}) => {
+  const signIn = async ({ email, password }: {email: string, password: string}, cb: () => void) => {
     setAuthState({
       data: null, 
       error: null, 
@@ -21,6 +21,7 @@ const useAuth = () => {
         error: null, 
         loading: false,
       })
+      cb();
     } catch (err: any) {
       setAuthState({
         data: null,
