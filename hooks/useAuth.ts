@@ -74,8 +74,6 @@ const useAuth = () => {
           loading: false,
         })
       }
-    
-
   };
 
   return {
