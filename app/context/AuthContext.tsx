@@ -27,7 +27,7 @@ interface Auth extends State {
 }
 
 export const AuthenticationContext = createContext<Auth>({
-  loading: false,
+  loading: true,
   error: null,
   data: null,
   setAuthState: () => {},
@@ -35,7 +35,7 @@ export const AuthenticationContext = createContext<Auth>({
 
 const AuthContext: React.FunctionComponent<Props> = ({ children }) => {
   const [authState, setAuthState] = useState<State>({
-    loading: false,
+    loading: true,
     error: null,
     data: null,
   });
