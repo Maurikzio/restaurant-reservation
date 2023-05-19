@@ -3,9 +3,11 @@ import Link from "next/link";
 import AuthModal from "./AuthModal";
 import { useContext } from "react";
 import { AuthenticationContext } from "@/app/context/AuthContext";
+import useAuth from "@/hooks/useAuth";
 
 const NavBar = () => {
   const { data, loading } = useContext(AuthenticationContext);
+  const { signOut } = useAuth();
   return (
     <nav className="bg-white p-2 flex justify-between">
       <Link href="/" className="font-bold text-gray-700 text-2xl">
@@ -15,8 +17,11 @@ const NavBar = () => {
         {loading ? null : (
           <div className="flex">
             {data ? (
-              <button className="bg-blue-400 text-white border p-1 px-4 rounded mr-3">
-                Log Out
+              <button
+                onClick={() => signOut()}
+                className="bg-blue-400 text-white border p-1 px-4 rounded mr-3"
+              >
+                Sign Out
               </button>
             ) : (
               <>
