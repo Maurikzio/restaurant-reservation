@@ -119,17 +119,16 @@ export async function GET(request: Request, { params }: Params, response: Respon
 
 
 
-  return NextResponse.json(
-    {
-      // searchTimes,
-      // bookings,
-      // bookingsTablesObj,
-      tables,
-      // searchTimesWithTables
-      availabilities
-    },
-    { status: 200 }
-  );
-
-
+  return NextResponse.json(availabilities, { status: 200 });
+  // return NextResponse.json(
+  //   {
+  //     // searchTimes,
+  //     // bookings,
+  //     // bookingsTablesObj,
+  //     // tables,
+  //     // searchTimesWithTables,
+  //     availabilities
+  //   },
+  //   { status: 200 }
+  // );
 }
