@@ -9,7 +9,7 @@ import { Review } from "@prisma/client";
 import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
 
-interface Restaurant {
+export interface Restaurant {
   id: number;
   name: string;
   images: string[];
