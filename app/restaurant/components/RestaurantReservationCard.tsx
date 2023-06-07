@@ -62,7 +62,7 @@ const RestaurantReservationCard: React.FunctionComponent<Props> = ({
   };
 
   return (
-    <div className="fixed w-[25%] bg-white rounded p-3 shadow">
+    <div className="fixed w-[25%] bg-white rounded p-3 shadow bottom-10">
       <div className="text-center border-b pb-2 font-bold">
         <h4 className="mr-7 text-lg">Make a Reservation</h4>
       </div>
@@ -128,13 +128,17 @@ const RestaurantReservationCard: React.FunctionComponent<Props> = ({
                 <Link
                   className="bg-red-600 cursor-pointer p-2 w-24 text-center text-white mb-3 mr-3 rounded"
                   href={`/reserve/${slug}?date=${day}T${t.time}&partySize=${partySize}`}
+                  key={t.time}
                 >
                   <p className="text-small font-bold">
                     {convertToDisplayTime(t.time as Time)}
                   </p>
                 </Link>
               ) : (
-                <p className="bg-gray-300 p-2 w-24 mb-3 rounded mr-3"></p>
+                <p
+                  className="bg-gray-300 p-2 w-24 mb-3 rounded mr-3"
+                  key={t.time}
+                ></p>
               );
             })}
           </div>
